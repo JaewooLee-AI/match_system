@@ -1,13 +1,9 @@
 import { createClient } from "@supabase/supabase-js";
 
-// anon key는 Supabase 공개 키 — 프론트엔드 코드에 있어도 보안 문제 없음
-// env 미설정/오설정 시에도 동작하도록 실제 값을 fallback으로 기재 (학습 환경)
-const supabaseUrl =
-  (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim() ||
-  "https://tdiazkelturrponuufxw.supabase.co";
-
+// anon key는 프론트엔드 공개 키 — 코드에 직접 기재해도 보안 문제 없음 (학습 환경)
+// Vercel 빌드 시 NEXT_PUBLIC_* 치환 오작동을 피하기 위해 값을 직접 선언
+const supabaseUrl = "https://tdiazkelturrponuufxw.supabase.co";
 const supabaseAnonKey =
-  (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim() ||
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkaWF6a2VsdHVycnBvbnV1Znh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5OTE4NjcsImV4cCI6MjA5MzU2Nzg2N30.YhJEf_SbVFbn-VCw1U1rN5VjsOW3GIezVVVpw8wh0zw";
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
