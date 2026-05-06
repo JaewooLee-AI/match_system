@@ -1,14 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 
-// 빌드 타임(Vercel)에 env가 없어도 모듈 로딩이 멈추지 않도록 ?? 처리
-// 실제 런타임에는 Vercel Environment Variables에 등록된 값이 사용됨
-// .trim(): Vercel 환경변수 붙여넣기 시 섞이는 개행·공백 제거
-const supabaseUrl = (
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://placeholder.supabase.co"
-).trim();
-const supabaseAnonKey = (
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "placeholder-anon-key"
-).trim();
+// anon key는 Supabase 공개 키 — 프론트엔드 코드에 있어도 보안 문제 없음
+// env 미설정/오설정 시에도 동작하도록 실제 값을 fallback으로 기재 (학습 환경)
+const supabaseUrl =
+  (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").trim() ||
+  "https://tdiazkelturrponuufxw.supabase.co";
+
+const supabaseAnonKey =
+  (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "").trim() ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRkaWF6a2VsdHVycnBvbnV1Znh3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc5OTE4NjcsImV4cCI6MjA5MzU2Nzg2N30.YhJEf_SbVFbn-VCw1U1rN5VjsOW3GIezVVVpw8wh0zw";
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
