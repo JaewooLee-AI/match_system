@@ -72,13 +72,21 @@ export default function SeniorsPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse table-fixed min-w-[760px]">
+                <colgroup>
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "13%" }} />
+                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "16%" }} />
+                  <col style={{ width: "36%" }} />
+                </colgroup>
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     {["이름", "지역", "희망 직종", "경력", "상태", "작업"].map((h) => (
                       <th
                         key={h}
-                        className={`py-3 px-4 text-lg font-semibold text-gray-700 text-center ${h === "작업" ? "w-64" : ""}`}
+                        className="py-3 px-4 text-lg font-semibold text-gray-700 text-center"
                       >
                         {h}
                       </th>
