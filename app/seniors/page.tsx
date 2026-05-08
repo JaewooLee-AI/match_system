@@ -141,7 +141,7 @@ export default function SeniorsPage() {
                                 size="sm"
                                 disabled
                                 title="배정 완료된 시니어는 삭제할 수 없습니다"
-                                className="text-base px-3 py-2 font-semibold border-2 text-gray-400 cursor-not-allowed"
+                                className="w-24 text-base py-2 font-semibold border-2 text-gray-400 cursor-not-allowed"
                               >
                                 삭제 불가
                               </Button>
@@ -151,7 +151,7 @@ export default function SeniorsPage() {
                                 size="sm"
                                 onClick={() => handleDelete(s.id, s.name)}
                                 disabled={deletingId === s.id}
-                                className="text-base px-3 py-2 font-semibold cursor-pointer"
+                                className="w-24 text-base py-2 font-semibold cursor-pointer"
                               >
                                 {deletingId === s.id ? "삭제 중…" : "삭제"}
                               </Button>
