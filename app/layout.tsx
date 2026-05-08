@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
         <header className="bg-white border-b border-gray-200 shadow-sm">
           <nav className="max-w-5xl mx-auto px-6 py-4 flex gap-8 items-center">
-            <span className="text-2xl font-bold text-blue-700">상상우리</span>
+            <a href="/" className="text-2xl font-bold text-blue-700 hover:text-blue-900 transition-colors">상상우리</a>
             <a href="/register" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
               프로필 등록
             </a>
