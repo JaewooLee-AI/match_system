@@ -80,20 +80,56 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
   const [summary, setSummary] = useState<MatchSummary | null>(null);
   const [seniors, setSeniors] = useState<SeniorDashboardRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [actingId, setActingId] = useState<string | null>(null);
+
+  const load = useCallback(async () => {
+    setLoading(true);
+    const [{ data: sumArr }, { data: seniorRows }] = await Promise.all([
+      supabase.rpc("get_match_summary"),
+      supabase.rpc("get_senior_dashboard"),
+    ]);
+    setSummary((sumArr as MatchSummary[] | null)?.[0] ?? null);
+    setSeniors((seniorRows as SeniorDashboardRow[]) ?? []);
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
-    async function load() {
-      setLoading(true);
-      const [{ data: sumArr }, { data: seniorRows }] = await Promise.all([
-        supabase.rpc("get_match_summary"),
-        supabase.rpc("get_senior_dashboard"),
-      ]);
-      setSummary((sumArr as MatchSummary[] | null)?.[0] ?? null);
-      setSeniors((seniorRows as SeniorDashboardRow[]) ?? []);
-      setLoading(false);
-    }
     load();
-  }, [refreshKey]);
+  }, [load, refreshKey]);
+
+  async function assignSenior(id: string) {
+    setActingId(id);
+    await supabase
+      .from("matches")
+      .update({ status: "assigned" })
+      .eq("senior_id", id)
+      .eq("status", "pending");
+    await load();
+    setActingId(null);
+  }
+
+  async function unassignSenior(id: string) {
+    setActingId(id);
+    await supabase
+      .from("matches")
+      .update({ status: "pending" })
+      .eq("senior_id", id)
+      .eq("status", "assigned");
+    await load();
+    setActingId(null);
+  }
+
+  const activeSeniors = seniors.filter((s) => s.match_status !== "assigned");
+  const assignedSeniors = seniors.filter((s) => s.match_status === "assigned");
+
+  const scoreClass = (score: number) =>
+    score === 6
+      ? "text-yellow-600"
+      : score >= 4
+      ? "text-green-600"
+      : score >= 2
+      ? "text-gray-700"
+      : "text-gray-400";
 
   return (
     <section className="mb-16">
@@ -115,22 +151,24 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
         ))}
       </div>
 
-      {/* 시니어 목록 테이블 */}
-      <Card className="shadow-md">
+      {/* 미매칭 · 매칭 대기 목록 */}
+      <Card className="shadow-md mb-8">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl text-gray-800">시니어 목록</CardTitle>
-            <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
-              총 {seniors.length}명
-            </Badge>
+            <CardTitle className="text-2xl text-gray-800">미매칭 · 매칭 대기 목록</CardTitle>
+            {!loading && (
+              <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
+                {activeSeniors.length}명
+              </Badge>
+            )}
           </div>
         </CardHeader>
         <CardContent>
           {loading ? (
             <div className="py-12 text-xl text-gray-400 text-center">불러오는 중…</div>
-          ) : seniors.length === 0 ? (
+          ) : activeSeniors.length === 0 ? (
             <div className="py-12 text-xl text-gray-400 text-center">
-              등록된 시니어가 없습니다.
+              미매칭·대기 중인 시니어가 없습니다.
             </div>
           ) : (
             <div className="overflow-x-auto">
@@ -138,42 +176,98 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                 <thead>
                   <tr className="border-b-2 border-gray-200">
                     {["이름", "지역", "희망 직종", "최고 점수", "상태", "상세"].map((h) => (
-                      <th
-                        key={h}
-                        className="py-3 px-4 text-lg font-semibold text-gray-700 text-center"
-                      >
+                      <th key={h} className="py-3 px-4 text-lg font-semibold text-gray-700 text-center">
                         {h}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {seniors.map((s, idx) => (
+                  {activeSeniors.map((s, idx) => (
                     <tr
                       key={s.id}
-                      className={`border-b border-gray-100 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      } hover:bg-blue-50 transition-colors`}
+                      className={`border-b border-gray-100 ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-blue-50 transition-colors`}
                     >
-                      <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">
-                        {s.name}
-                      </td>
+                      <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">{s.name}</td>
                       <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.region}</td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">
-                        {s.desired_job}
+                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.desired_job}</td>
+                      <td className="py-4 px-4 text-center">
+                        <span className={`text-xl font-bold ${scoreClass(s.best_score)}`}>
+                          {s.best_score}점
+                        </span>
                       </td>
                       <td className="py-4 px-4 text-center">
-                        <span
-                          className={`text-xl font-bold ${
-                            s.best_score === 6
-                              ? "text-yellow-600"
-                              : s.best_score >= 4
-                              ? "text-green-600"
-                              : s.best_score >= 2
-                              ? "text-gray-700"
-                              : "text-gray-400"
-                          }`}
-                        >
+                        {s.match_status === "pending" ? (
+                          <button
+                            onClick={() => assignSenior(s.id)}
+                            disabled={actingId === s.id}
+                            title="클릭하여 배정 완료 처리"
+                            className="text-base px-3 py-1 bg-yellow-100 text-yellow-800 border border-yellow-400 rounded-full font-semibold hover:bg-yellow-200 cursor-pointer transition-colors disabled:opacity-50"
+                          >
+                            {actingId === s.id ? "처리 중…" : "🕐 매칭 대기"}
+                          </button>
+                        ) : (
+                          <StatusBadge status={s.match_status} />
+                        )}
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <Link href={`/recommendations?senior_id=${s.id}`}>
+                          <Button variant="outline" size="sm" className="text-base px-4 py-2 font-semibold border-2 cursor-pointer">
+                            상세 보기
+                          </Button>
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* 배정 완료 목록 */}
+      <Card className="shadow-md border-2 border-green-200">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-2xl text-gray-800">✅ 배정 완료 목록</CardTitle>
+            {!loading && (
+              <Badge className="text-base px-3 py-1 bg-green-100 text-green-800 border border-green-400">
+                {assignedSeniors.length}명
+              </Badge>
+            )}
+          </div>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <div className="py-12 text-xl text-gray-400 text-center">불러오는 중…</div>
+          ) : assignedSeniors.length === 0 ? (
+            <div className="py-12 text-xl text-gray-400 text-center">
+              배정 완료된 시니어가 없습니다.
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b-2 border-gray-200">
+                    {["이름", "지역", "희망 직종", "최고 점수", "상태", "상세", "매칭 취소"].map((h) => (
+                      <th key={h} className="py-3 px-4 text-lg font-semibold text-gray-700 text-center">
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {assignedSeniors.map((s, idx) => (
+                    <tr
+                      key={s.id}
+                      className={`border-b border-gray-100 ${idx % 2 === 0 ? "bg-white" : "bg-green-50"} hover:bg-green-100 transition-colors`}
+                    >
+                      <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">{s.name}</td>
+                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.region}</td>
+                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.desired_job}</td>
+                      <td className="py-4 px-4 text-center">
+                        <span className={`text-xl font-bold ${scoreClass(s.best_score)}`}>
                           {s.best_score}점
                         </span>
                       </td>
@@ -182,14 +276,21 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                       </td>
                       <td className="py-4 px-4 text-center">
                         <Link href={`/recommendations?senior_id=${s.id}`}>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-base px-4 py-2 font-semibold border-2 cursor-pointer"
-                          >
+                          <Button variant="outline" size="sm" className="text-base px-4 py-2 font-semibold border-2 cursor-pointer">
                             상세 보기
                           </Button>
                         </Link>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => unassignSenior(s.id)}
+                          disabled={actingId === s.id}
+                          className="text-base px-4 py-2 font-semibold border-2 border-orange-300 text-orange-700 hover:bg-orange-50 cursor-pointer"
+                        >
+                          {actingId === s.id ? "처리 중…" : "매칭 취소"}
+                        </Button>
                       </td>
                     </tr>
                   ))}
