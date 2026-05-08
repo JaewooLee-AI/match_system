@@ -21,7 +21,7 @@ import {
 // ── 상수 ────────────────────────────────────────────────────────────────────
 
 const SELECT_TRIGGER_CLASS =
-  "text-lg py-5 h-auto border-2 border-gray-300 focus:border-blue-500";
+  "text-lg py-5 h-auto border-2 border-gray-300 focus:border-indigo-500";
 
 // ── 집계 카드 ────────────────────────────────────────────────────────────────
 
@@ -57,20 +57,20 @@ const SUMMARY_META = [
 function StatusBadge({ status }: { status: SeniorDashboardRow["match_status"] }) {
   if (status === "assigned")
     return (
-      <Badge className="text-base px-3 py-1 bg-green-100 text-green-800 border border-green-400">
+      <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200">
         배정 완료
-      </Badge>
+      </span>
     );
   if (status === "pending")
     return (
-      <Badge className="text-base px-3 py-1 bg-yellow-100 text-yellow-800 border border-yellow-400">
+      <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-200">
         매칭 대기
-      </Badge>
+      </span>
     );
   return (
-    <Badge className="text-base px-3 py-1 bg-gray-100 text-gray-600 border border-gray-300">
+    <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 ring-1 ring-rose-200">
       미매칭
-    </Badge>
+    </span>
   );
 }
 
@@ -133,7 +133,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
 
   return (
     <section className="mb-16">
-      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">현황</p>
+      <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">현황</p>
       <h2 className="text-3xl font-bold text-gray-900 mb-6">매칭 현황</h2>
 
       {/* 집계 카드 3개 */}
@@ -158,7 +158,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl text-gray-800">미매칭 · 매칭 대기 목록</CardTitle>
             {!loading && (
-              <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
+              <Badge className="text-base px-3 py-1 bg-indigo-100 text-indigo-800 border border-indigo-300">
                 {activeSeniors.length}명
               </Badge>
             )}
@@ -175,25 +175,25 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b-2 border-gray-200">
+                  <tr className="bg-slate-900">
                     {["이름", "지역", "희망 직종", "최고 점수", "상태", "상세"].map((h) => (
-                      <th key={h} className="py-3 px-4 text-lg font-semibold text-gray-700 text-center">
+                      <th key={h} className="py-4 px-5 text-xs font-semibold text-slate-400 uppercase tracking-widest text-center">
                         {h}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody>
-                  {activeSeniors.map((s, idx) => (
+                <tbody className="divide-y divide-slate-100">
+                  {activeSeniors.map((s) => (
                     <tr
                       key={s.id}
-                      className={`border-b border-gray-100 ${idx % 2 === 0 ? "bg-white" : "bg-gray-50"} hover:bg-blue-50 transition-colors`}
+                      className="bg-white hover:bg-indigo-50/40 transition-colors"
                     >
-                      <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">{s.name}</td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.region}</td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.desired_job}</td>
+                      <td className="py-4 px-4 text-sm font-semibold text-slate-900 text-center">{s.name}</td>
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.region}</td>
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.desired_job}</td>
                       <td className="py-4 px-4 text-center">
-                        <span className={`text-xl font-bold ${scoreClass(s.best_score)}`}>
+                        <span className={`text-sm font-bold ${scoreClass(s.best_score)}`}>
                           {s.best_score}점
                         </span>
                       </td>
@@ -203,9 +203,9 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                             onClick={() => assignSenior(s.id)}
                             disabled={actingId === s.id}
                             title="클릭하여 배정 완료 처리"
-                            className="text-base px-3 py-1 bg-yellow-100 text-yellow-800 border border-yellow-400 rounded-full font-semibold hover:bg-yellow-200 cursor-pointer transition-colors disabled:opacity-50"
+                            className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-200 hover:bg-amber-100 cursor-pointer transition-colors disabled:opacity-50"
                           >
-                            {actingId === s.id ? "처리 중…" : "🕐 매칭 대기"}
+                            {actingId === s.id ? "처리 중…" : "매칭 대기"}
                           </button>
                         ) : (
                           <StatusBadge status={s.match_status} />
@@ -213,7 +213,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                       </td>
                       <td className="py-4 px-4 text-center">
                         <Link href={`/recommendations?senior_id=${s.id}`}>
-                          <Button variant="outline" size="sm" className="text-base px-4 py-2 font-semibold border-2 cursor-pointer">
+                          <Button variant="outline" size="sm" className="text-sm px-3 py-1.5 font-semibold border cursor-pointer">
                             상세 보기
                           </Button>
                         </Link>
@@ -250,25 +250,25 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b-2 border-gray-200">
+                  <tr className="bg-slate-900">
                     {["이름", "지역", "희망 직종", "최고 점수", "상태", "상세", "매칭 취소"].map((h) => (
-                      <th key={h} className="py-3 px-4 text-lg font-semibold text-gray-700 text-center">
+                      <th key={h} className="py-4 px-5 text-xs font-semibold text-slate-400 uppercase tracking-widest text-center">
                         {h}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody>
-                  {assignedSeniors.map((s, idx) => (
+                <tbody className="divide-y divide-slate-100">
+                  {assignedSeniors.map((s) => (
                     <tr
                       key={s.id}
-                      className={`border-b border-gray-100 ${idx % 2 === 0 ? "bg-white" : "bg-green-50"} hover:bg-green-100 transition-colors`}
+                      className="bg-white hover:bg-emerald-50/40 transition-colors"
                     >
-                      <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">{s.name}</td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.region}</td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.desired_job}</td>
+                      <td className="py-4 px-4 text-sm font-semibold text-slate-900 text-center">{s.name}</td>
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.region}</td>
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.desired_job}</td>
                       <td className="py-4 px-4 text-center">
-                        <span className={`text-xl font-bold ${scoreClass(s.best_score)}`}>
+                        <span className={`text-sm font-bold ${scoreClass(s.best_score)}`}>
                           {s.best_score}점
                         </span>
                       </td>
@@ -277,7 +277,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                       </td>
                       <td className="py-4 px-4 text-center">
                         <Link href={`/recommendations?senior_id=${s.id}`}>
-                          <Button variant="outline" size="sm" className="text-base px-4 py-2 font-semibold border-2 cursor-pointer">
+                          <Button variant="outline" size="sm" className="text-sm px-3 py-1.5 font-semibold border cursor-pointer">
                             상세 보기
                           </Button>
                         </Link>
@@ -288,7 +288,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                           size="sm"
                           onClick={() => unassignSenior(s.id)}
                           disabled={actingId === s.id}
-                          className="text-base px-4 py-2 font-semibold border-2 border-orange-300 text-orange-700 hover:bg-orange-50 cursor-pointer"
+                          className="text-sm px-3 py-1.5 font-semibold border border-orange-300 text-orange-700 hover:bg-orange-50 cursor-pointer"
                         >
                           {actingId === s.id ? "처리 중…" : "매칭 취소"}
                         </Button>
@@ -394,7 +394,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
 
   return (
     <section className="mb-16">
-      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">일자리</p>
+      <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">일자리</p>
       <h2 className="text-3xl font-bold text-gray-900 mb-6">일자리 관리</h2>
 
       {/* 일자리 추가 폼 */}
@@ -419,7 +419,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
                   value={form.title}
                   onChange={(e) => setField("title", e.target.value)}
                   placeholder="예: 아파트 경비원 모집"
-                  className="text-lg py-5 px-4 border-2 border-gray-300 focus:border-blue-500"
+                  className="text-lg py-5 px-4 border-2 border-gray-300 focus:border-indigo-500"
                 />
               </div>
 
@@ -482,7 +482,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
                   min={0}
                   value={form.required_career}
                   onChange={(e) => setField("required_career", e.target.value)}
-                  className="text-lg py-5 px-4 border-2 border-gray-300 focus:border-blue-500"
+                  className="text-lg py-5 px-4 border-2 border-gray-300 focus:border-indigo-500"
                 />
               </div>
 
@@ -492,7 +492,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
                   type="submit"
                   disabled={adding}
                   size="lg"
-                  className="w-full text-xl py-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl"
+                  className="w-full text-xl py-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl"
                 >
                   {adding ? "추가 중…" : "일자리 추가"}
                 </Button>
@@ -507,7 +507,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl text-gray-800">등록된 일자리</CardTitle>
-            <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
+            <Badge className="text-base px-3 py-1 bg-indigo-100 text-indigo-800 border border-indigo-300">
               총 {jobs.length}건
             </Badge>
           </div>
@@ -521,35 +521,33 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
                 <thead>
-                  <tr className="border-b-2 border-gray-200">
+                  <tr className="bg-slate-900">
                     {["공고명", "지역", "직종", "요구 경력", "삭제"].map((h) => (
                       <th
                         key={h}
-                        className="py-3 px-4 text-lg font-semibold text-gray-700 text-center"
+                        className="py-4 px-5 text-xs font-semibold text-slate-400 uppercase tracking-widest text-center"
                       >
                         {h}
                       </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody>
-                  {jobs.map((job, idx) => (
+                <tbody className="divide-y divide-slate-100">
+                  {jobs.map((job) => (
                     <tr
                       key={job.id}
-                      className={`border-b border-gray-100 ${
-                        idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                      } hover:bg-blue-50 transition-colors`}
+                      className="bg-white hover:bg-indigo-50/40 transition-colors"
                     >
-                      <td className="py-4 px-4 text-xl font-medium text-gray-900 text-center">
+                      <td className="py-4 px-4 text-sm font-medium text-slate-900 text-center">
                         {job.title}
                       </td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">
                         {job.region}
                       </td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">
                         {job.job_type}
                       </td>
-                      <td className="py-4 px-4 text-xl text-gray-700 text-center">
+                      <td className="py-4 px-4 text-sm text-slate-600 text-center">
                         {job.required_career}년
                       </td>
                       <td className="py-4 px-4 text-center">
@@ -558,7 +556,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
                           size="sm"
                           onClick={() => handleDelete(job.id)}
                           disabled={deletingId === job.id}
-                          className="text-base px-4 py-2 font-semibold"
+                          className="text-sm px-3 py-1.5 font-semibold"
                         >
                           {deletingId === job.id ? "삭제 중…" : "삭제"}
                         </Button>
@@ -582,7 +580,7 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
-      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">관리자</p>
+      <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">관리자</p>
       <h1 className="text-4xl font-bold text-gray-900 mb-2">담당자 대시보드</h1>
       <p className="text-xl text-gray-500 mb-12">
         일자리를 등록하고 시니어 매칭 현황을 관리하세요.
@@ -590,7 +588,7 @@ export default function AdminPage() {
 
       <MatchDashboard refreshKey={dashboardKey} />
 
-      <div className="border-t-2 border-gray-200 pt-12">
+      <div className="border-t-2 border-slate-100 pt-12">
         <JobManagement onJobAdded={() => setDashboardKey((k) => k + 1)} />
       </div>
     </div>

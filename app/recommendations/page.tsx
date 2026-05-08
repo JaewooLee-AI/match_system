@@ -82,7 +82,7 @@ function RecommendationsContent() {
   return (
     <div className="space-y-6">
       <div className="mb-10">
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">추천 결과</p>
+        <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">추천 결과</p>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">
           {seniorName ? `${seniorName} 님께 맞는 일자리` : "추천 일자리"}
         </h1>
@@ -102,7 +102,7 @@ function RecommendationsContent() {
         <>
           <div className="flex items-center gap-3">
             <span className="text-lg text-gray-600">정렬 기준:</span>
-            <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
+            <Badge className="text-base px-3 py-1 bg-indigo-100 text-indigo-800 border border-indigo-300">
               매칭 점수 높은 순
             </Badge>
             <span className="text-lg text-gray-500">총 {matches.length}건</span>
@@ -112,7 +112,7 @@ function RecommendationsContent() {
             {matches.map((m) => (
               <Card
                 key={m.id}
-                className="rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all"
+                className="rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-indigo-200 hover:-translate-y-0.5 transition-all"
               >
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between gap-4">

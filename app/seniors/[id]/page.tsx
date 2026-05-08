@@ -18,9 +18,9 @@ import {
 } from "@/components/ui/select";
 
 const FIELD_CLASS =
-  "text-xl py-6 px-4 border-2 border-gray-300 focus:border-blue-500";
+  "text-xl py-6 px-4 border-2 border-gray-300 focus:border-indigo-500";
 const SELECT_TRIGGER_CLASS =
-  "text-xl py-6 h-auto border-2 border-gray-300 focus:border-blue-500";
+  "text-xl py-6 h-auto border-2 border-gray-300 focus:border-indigo-500";
 const ERROR_CLASS =
   "text-lg text-red-700 bg-red-50 border border-red-300 rounded-lg px-4 py-3";
 
@@ -155,7 +155,7 @@ export default function EditSeniorPage() {
             ← 목록으로
           </Button>
         </Link>
-        <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">프로필 관리</p>
+        <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">프로필 관리</p>
         <h1 className="text-4xl font-bold text-gray-900">프로필 수정</h1>
       </div>
 
@@ -168,7 +168,7 @@ export default function EditSeniorPage() {
             </Link>
             <Link
               href={`/recommendations?senior_id=${id}`}
-              className="underline font-semibold hover:text-green-700"
+              className="underline font-semibold hover:text-indigo-700"
             >
               추천 일자리 보기 →
             </Link>
@@ -265,7 +265,7 @@ export default function EditSeniorPage() {
               type="submit"
               size="lg"
               disabled={status === "saving"}
-              className="w-full text-2xl py-8 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl cursor-pointer"
+              className="w-full text-2xl py-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl cursor-pointer"
             >
               {status === "saving" ? "저장 중…" : "수정 저장"}
             </Button>

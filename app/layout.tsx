@@ -27,22 +27,14 @@ export default function RootLayout({
       lang="ko"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
-        <header className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50">
+      <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
+        <header className="bg-slate-950 border-b border-slate-800 sticky top-0 z-50">
           <nav className="max-w-5xl mx-auto px-6 py-4 flex gap-6 items-center overflow-x-auto">
-            <a href="/" className="text-2xl font-bold text-white hover:text-blue-400 transition-colors shrink-0">상상우리</a>
-            <a href="/register" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
-              프로필 등록
-            </a>
-            <a href="/seniors" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
-              시니어 목록
-            </a>
-            <a href="/recommendations" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
-              추천 일자리
-            </a>
-            <a href="/admin" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
-              담당자 대시보드
-            </a>
+            <a href="/" className="text-2xl font-bold text-white hover:text-indigo-400 transition-colors shrink-0">상상우리</a>
+            <a href="/register" className="text-base font-medium text-slate-400 hover:text-white transition-colors shrink-0">프로필 등록</a>
+            <a href="/seniors" className="text-base font-medium text-slate-400 hover:text-white transition-colors shrink-0">시니어 목록</a>
+            <a href="/recommendations" className="text-base font-medium text-slate-400 hover:text-white transition-colors shrink-0">추천 일자리</a>
+            <a href="/admin" className="text-base font-medium text-slate-400 hover:text-white transition-colors shrink-0">담당자 대시보드</a>
           </nav>
         </header>
         <main className="flex-1">{children}</main>

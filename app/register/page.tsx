@@ -29,9 +29,9 @@ type Errors = {
 };
 
 const FIELD_CLASS =
-  "text-xl py-6 px-4 border-2 border-gray-300 focus:border-blue-500";
+  "text-xl py-6 px-4 border-2 border-gray-300 focus:border-indigo-500";
 const SELECT_TRIGGER_CLASS =
-  "text-xl py-6 h-auto border-2 border-gray-300 focus:border-blue-500";
+  "text-xl py-6 h-auto border-2 border-gray-300 focus:border-indigo-500";
 const ERROR_CLASS =
   "text-lg text-red-700 bg-red-50 border border-red-300 rounded-lg px-4 py-3";
 
@@ -103,7 +103,7 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-12">
-      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">신청하기</p>
+      <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-2">신청하기</p>
       <h1 className="text-4xl font-bold text-gray-900 mb-2">시니어 일자리 신청하기</h1>
       <p className="text-xl text-gray-500 mb-10">
         정보를 입력하시면 맞는 일자리를 찾아드립니다.
@@ -216,7 +216,7 @@ export default function RegisterPage() {
               type="submit"
               size="lg"
               disabled={status === "loading"}
-              className="w-full text-2xl py-8 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl"
+              className="w-full text-2xl py-8 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl"
             >
               {status === "loading" ? "저장 중…" : "등록하기"}
             </Button>

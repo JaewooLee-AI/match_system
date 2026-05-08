@@ -42,12 +42,12 @@ export default function HomePage() {
             backgroundSize: "28px 28px",
           }}
         />
-        {/* 블루 글로우 */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-blue-600/20 rounded-full blur-3xl" />
+        {/* 인디고 글로우 */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-indigo-600/20 rounded-full blur-3xl" />
 
         <div className="relative max-w-4xl mx-auto px-6 py-24 sm:py-36 text-center">
           {/* 뱃지 */}
-          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-1.5 text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 rounded-full px-4 py-1.5 text-indigo-400 text-sm font-medium mb-8 backdrop-blur-sm">
             🤝 시니어 일자리 자동 매칭 시스템
           </div>
 
@@ -55,7 +55,7 @@ export default function HomePage() {
           <h1 className="text-5xl sm:text-7xl font-extrabold tracking-tight leading-tight mb-6">
             <span className="text-white">일자리, 이제</span>
             <br />
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-sky-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-300 bg-clip-text text-transparent">
               상상우리
             </span>
             <span className="text-white">가 찾아드립니다</span>
@@ -73,7 +73,7 @@ export default function HomePage() {
             <Link href="/register">
               <Button
                 size="lg"
-                className="w-full sm:w-auto text-xl py-7 px-10 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl cursor-pointer transition-colors"
+                className="w-full sm:w-auto text-xl py-7 px-10 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl cursor-pointer transition-colors"
               >
                 지금 신청하기 →
               </Button>
@@ -107,7 +107,7 @@ export default function HomePage() {
 
       {/* ── 기능 카드 ── */}
       <section className="max-w-5xl mx-auto px-6 py-16 sm:py-24 w-full">
-        <p className="text-center text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
+        <p className="text-center text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-3">
           주요 기능
         </p>
         <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 text-center mb-12">
@@ -117,15 +117,15 @@ export default function HomePage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {features.map((f) => (
             <Link key={f.href} href={f.href}>
-              <div className="group h-full flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-lg hover:border-blue-300 hover:-translate-y-1 transition-all cursor-pointer">
+              <div className="group h-full flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-lg hover:border-indigo-300 hover:-translate-y-1 transition-all cursor-pointer">
                 <div className="text-4xl">{f.icon}</div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-blue-700 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1 group-hover:text-indigo-700 transition-colors">
                     {f.title}
                   </h3>
                   <p className="text-base text-gray-500 leading-relaxed">{f.description}</p>
                 </div>
-                <span className="mt-auto text-blue-600 font-semibold text-sm group-hover:underline">
+                <span className="mt-auto text-indigo-600 font-semibold text-sm group-hover:underline">
                   바로 가기 →
                 </span>
               </div>

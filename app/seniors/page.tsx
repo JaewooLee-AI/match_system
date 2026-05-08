@@ -13,20 +13,20 @@ import { Input } from "@/components/ui/input";
 function StatusBadge({ status }: { status: SeniorDashboardRow["match_status"] }) {
   if (status === "assigned")
     return (
-      <Badge className="text-sm px-2 py-1 bg-green-100 text-green-800 border border-green-400">
-        ✅ 배정 완료
-      </Badge>
+      <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200">
+        배정 완료
+      </span>
     );
   if (status === "pending")
     return (
-      <Badge className="text-sm px-2 py-1 bg-yellow-100 text-yellow-800 border border-yellow-400">
-        🕐 매칭 대기
-      </Badge>
+      <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 ring-1 ring-amber-200">
+        매칭 대기
+      </span>
     );
   return (
-    <Badge className="text-sm px-2 py-1 bg-gray-100 text-gray-600 border border-gray-300">
+    <span className="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 ring-1 ring-rose-200">
       미매칭
-    </Badge>
+    </span>
   );
 }
 
@@ -131,14 +131,14 @@ export default function SeniorsPage() {
       {/* 헤더 */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
         <div>
-          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-1">관리</p>
+          <p className="text-sm font-semibold text-indigo-600 uppercase tracking-widest mb-1">관리</p>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">시니어 목록</h1>
           <p className="text-lg sm:text-xl text-gray-500">등록된 시니어 프로필을 조회·수정·삭제합니다.</p>
         </div>
         <Link href="/register" className="shrink-0">
           <Button
             size="lg"
-            className="w-full sm:w-auto text-lg sm:text-xl py-5 sm:py-6 px-5 sm:px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl cursor-pointer"
+            className="w-full sm:w-auto text-lg sm:text-xl py-5 sm:py-6 px-5 sm:px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl cursor-pointer"
           >
             + 새 프로필 등록
           </Button>
@@ -156,11 +156,11 @@ export default function SeniorsPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="이름·지역·직종 검색"
-                className="pl-10 text-base sm:text-lg py-4 sm:py-5 border-2 border-gray-300 focus:border-blue-500"
+                className="pl-10 text-base sm:text-lg py-4 sm:py-5 border-2 border-gray-300 focus:border-indigo-500"
               />
             </div>
             {!loading && (
-              <Badge className="self-start sm:self-auto text-sm sm:text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300 shrink-0">
+              <Badge className="self-start sm:self-auto text-sm sm:text-base px-3 py-1 bg-indigo-100 text-indigo-800 border border-indigo-300 shrink-0">
                 {query ? `${filtered.length} / ${seniors.length}명` : `총 ${seniors.length}명`}
               </Badge>
             )}
@@ -208,38 +208,36 @@ export default function SeniorsPage() {
                     <col style={{ width: "36%" }} />
                   </colgroup>
                   <thead>
-                    <tr className="border-b-2 border-gray-200">
+                    <tr className="bg-slate-900">
                       {["이름", "지역", "희망 직종", "경력", "상태", "작업"].map((h) => (
-                        <th key={h} className="py-3 px-4 text-lg font-semibold text-gray-700 text-center">
+                        <th key={h} className="py-4 px-5 text-xs font-semibold text-slate-400 uppercase tracking-widest text-center">
                           {h}
                         </th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody>
-                    {filtered.map((s, idx) => (
+                  <tbody className="divide-y divide-slate-100">
+                    {filtered.map((s) => (
                       <tr
                         key={s.id}
-                        className={`border-b border-gray-100 ${
-                          idx % 2 === 0 ? "bg-white" : "bg-gray-50"
-                        } hover:bg-blue-50 transition-colors`}
+                        className="bg-white hover:bg-indigo-50/40 transition-colors"
                       >
-                        <td className="py-4 px-4 text-xl font-semibold text-gray-900 text-center">{s.name}</td>
-                        <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.region}</td>
-                        <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.desired_job}</td>
-                        <td className="py-4 px-4 text-xl text-gray-700 text-center">{s.career_years}년</td>
+                        <td className="py-4 px-4 text-sm font-semibold text-slate-900 text-center">{s.name}</td>
+                        <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.region}</td>
+                        <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.desired_job}</td>
+                        <td className="py-4 px-4 text-sm text-slate-600 text-center">{s.career_years}년</td>
                         <td className="py-4 px-4 text-center">
                           <StatusBadge status={s.match_status} />
                         </td>
                         <td className="py-4 px-4 text-center whitespace-nowrap">
                           <div className="flex gap-2 justify-center">
                             <Link href={`/recommendations?senior_id=${s.id}`}>
-                              <Button variant="outline" size="sm" className="text-base px-3 py-2 font-semibold border-2 cursor-pointer">
+                              <Button variant="outline" size="sm" className="text-sm px-3 py-1.5 font-semibold border cursor-pointer">
                                 추천 보기
                               </Button>
                             </Link>
                             <Link href={`/seniors/${s.id}`}>
-                              <Button size="sm" className="text-base px-3 py-2 font-semibold bg-blue-600 hover:bg-blue-700 text-white cursor-pointer">
+                              <Button size="sm" className="text-sm px-3 py-1.5 font-semibold bg-indigo-600 hover:bg-indigo-700 text-white cursor-pointer">
                                 수정
                               </Button>
                             </Link>
@@ -249,7 +247,7 @@ export default function SeniorsPage() {
                                 size="sm"
                                 disabled
                                 title="배정 완료된 시니어는 삭제할 수 없습니다"
-                                className="w-24 text-base py-2 font-semibold border-2 text-gray-400 cursor-not-allowed"
+                                className="w-20 text-sm py-1.5 font-semibold border text-gray-400 cursor-not-allowed"
                               >
                                 삭제 불가
                               </Button>
@@ -259,7 +257,7 @@ export default function SeniorsPage() {
                                 size="sm"
                                 onClick={() => handleDelete(s.id, s.name)}
                                 disabled={deletingId === s.id}
-                                className="w-24 text-base py-2 font-semibold cursor-pointer"
+                                className="w-20 text-sm py-1.5 font-semibold cursor-pointer"
                               >
                                 {deletingId === s.id ? "삭제 중…" : "삭제"}
                               </Button>
