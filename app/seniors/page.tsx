@@ -2,14 +2,17 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { Search } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import type { SeniorDashboardRow } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 
 export default function SeniorsPage() {
   const [seniors, setSeniors] = useState<SeniorDashboardRow[]>([]);
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -32,6 +35,16 @@ export default function SeniorsPage() {
     loadSeniors();
   }
 
+  const filtered = seniors.filter((s) => {
+    const q = query.trim().toLowerCase();
+    if (!q) return true;
+    return (
+      s.name.toLowerCase().includes(q) ||
+      s.region.toLowerCase().includes(q) ||
+      s.desired_job.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="flex items-start justify-between mb-8">
@@ -51,11 +64,20 @@ export default function SeniorsPage() {
 
       <Card className="shadow-md">
         <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl text-gray-800">등록 목록</CardTitle>
+          <div className="flex items-center justify-between gap-4">
+            <CardTitle className="text-2xl text-gray-800 shrink-0">등록 목록</CardTitle>
+            <div className="relative flex-1 max-w-sm">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="이름·지역·직종 검색"
+                className="pl-10 text-lg py-5 border-2 border-gray-300 focus:border-blue-500"
+              />
+            </div>
             {!loading && (
-              <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300">
-                총 {seniors.length}명
+              <Badge className="text-base px-3 py-1 bg-blue-100 text-blue-800 border border-blue-300 shrink-0">
+                {query ? `${filtered.length} / ${seniors.length}명` : `총 ${seniors.length}명`}
               </Badge>
             )}
           </div>
@@ -94,7 +116,13 @@ export default function SeniorsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {seniors.map((s, idx) => {
+                  {filtered.length === 0 ? (
+                    <tr>
+                      <td colSpan={6} className="py-12 text-xl text-gray-400 text-center">
+                        "{query}" 검색 결과가 없습니다.
+                      </td>
+                    </tr>
+                  ) : filtered.map((s, idx) => {
                     const isAssigned = s.match_status === "assigned";
                     return (
                       <tr
@@ -169,7 +197,7 @@ export default function SeniorsPage() {
                       </tr>
                     );
                   })}
-                </tbody>
+                  </tbody>
               </table>
             </div>
           )}
