@@ -185,7 +185,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="text-base px-4 py-2 font-semibold border-2"
+                            className="text-base px-4 py-2 font-semibold border-2 cursor-pointer"
                           >
                             상세 보기
                           </Button>
