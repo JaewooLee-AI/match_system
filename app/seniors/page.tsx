@@ -78,7 +78,7 @@ export default function SeniorsPage() {
                     {["이름", "지역", "희망 직종", "경력", "상태", "작업"].map((h) => (
                       <th
                         key={h}
-                        className="py-3 px-4 text-lg font-semibold text-gray-700 text-center"
+                        className={`py-3 px-4 text-lg font-semibold text-gray-700 text-center ${h === "작업" ? "w-64" : ""}`}
                       >
                         {h}
                       </th>
@@ -116,8 +116,8 @@ export default function SeniorsPage() {
                             </Badge>
                           )}
                         </td>
-                        <td className="py-4 px-4 text-center">
-                          <div className="flex gap-2 justify-center flex-wrap">
+                        <td className="py-4 px-4 text-center whitespace-nowrap">
+                          <div className="flex gap-2 justify-center">
                             <Link href={`/recommendations?senior_id=${s.id}`}>
                               <Button
                                 variant="outline"
