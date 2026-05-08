@@ -28,22 +28,25 @@ const SELECT_TRIGGER_CLASS =
 const SUMMARY_META = [
   {
     key: "unmatched_count" as keyof MatchSummary,
+    icon: "⚠️",
     label: "미매칭",
-    desc: "매칭 일자리 없음",
+    desc: "매칭 가능한 일자리 없음",
     color: "border-red-200 bg-red-50",
     textColor: "text-red-700",
   },
   {
     key: "pending_count" as keyof MatchSummary,
+    icon: "🕐",
     label: "매칭 대기",
-    desc: "배정 전 매칭 완료",
+    desc: "일자리 매칭 완료 · 배정 전",
     color: "border-yellow-200 bg-yellow-50",
     textColor: "text-yellow-700",
   },
   {
     key: "assigned_count" as keyof MatchSummary,
+    icon: "✅",
     label: "배정 완료",
-    desc: "assigned / done",
+    desc: "담당자가 배정 확인한 시니어",
     color: "border-green-200 bg-green-50",
     textColor: "text-green-700",
   },
@@ -101,6 +104,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
         {SUMMARY_META.map((m) => (
           <Card key={m.key} className={`border-2 ${m.color} shadow-sm`}>
             <CardContent className="py-6 text-center">
+              <p className="text-3xl mb-1">{m.icon}</p>
               <p className="text-xl font-semibold text-gray-700 mb-1">{m.label}</p>
               <p className={`text-5xl font-bold ${m.textColor}`}>
                 {loading ? "…" : (summary?.[m.key] ?? 0)}

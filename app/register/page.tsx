@@ -103,7 +103,7 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-2">프로필 등록</h1>
+      <h1 className="text-4xl font-bold text-gray-900 mb-2">시니어 일자리 신청하기</h1>
       <p className="text-xl text-gray-600 mb-10">
         정보를 입력하시면 맞는 일자리를 찾아드립니다.
       </p>
@@ -111,8 +111,8 @@ export default function RegisterPage() {
       {/* 성공 메시지 */}
       {status === "success" && (
         <div className="text-xl text-green-800 bg-green-50 border-2 border-green-400 rounded-xl px-6 py-5 mb-8 space-y-3">
-          <p className="font-bold">✅ 등록이 완료되었습니다.</p>
-          <p className="font-normal">매칭이 완료되었습니다. 아래 버튼을 눌러 추천 일자리를 확인하세요.</p>
+          <p className="font-bold">✅ 등록이 완료되었습니다. 담당자가 곧 연락드립니다.</p>
+          <p className="font-normal">아래 버튼을 눌러 추천 일자리를 먼저 확인하실 수 있습니다.</p>
           {insertedId && (
             <a
               href={`/recommendations?senior_id=${insertedId}`}
@@ -142,6 +142,7 @@ export default function RegisterPage() {
               <Label htmlFor="name" className="text-xl font-semibold text-gray-800">
                 이름 <span className="text-red-500">*</span>
               </Label>
+              <p className="text-base text-gray-500">실명을 입력해 주세요 (예: 홍길동)</p>
               <FieldError message={errors.name} />
               <Input
                 id="name"
@@ -157,6 +158,7 @@ export default function RegisterPage() {
               <Label className="text-xl font-semibold text-gray-800">
                 거주 지역 <span className="text-red-500">*</span>
               </Label>
+              <p className="text-base text-gray-500">현재 거주하시는 지역을 선택해 주세요</p>
               <FieldError message={errors.region} />
               <Select value={form.region} onValueChange={(v) => set("region", v ?? "")}>
                 <SelectTrigger className={SELECT_TRIGGER_CLASS}>
@@ -177,6 +179,7 @@ export default function RegisterPage() {
               <Label className="text-xl font-semibold text-gray-800">
                 희망 직종 <span className="text-red-500">*</span>
               </Label>
+              <p className="text-base text-gray-500">일하고 싶으신 직종을 선택해 주세요</p>
               <FieldError message={errors.desired_job} />
               <Select value={form.desired_job} onValueChange={(v) => set("desired_job", v ?? "")}>
                 <SelectTrigger className={SELECT_TRIGGER_CLASS}>
@@ -197,6 +200,7 @@ export default function RegisterPage() {
               <Label htmlFor="career_years" className="text-xl font-semibold text-gray-800">
                 관련 경력 (년)
               </Label>
+              <p className="text-base text-gray-500">해당 직종 관련 경력 연수를 입력해 주세요 (없으면 0)</p>
               <Input
                 id="career_years"
                 type="number"

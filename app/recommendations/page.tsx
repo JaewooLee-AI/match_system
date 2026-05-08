@@ -11,18 +11,18 @@ function ScoreBadge({ score }: { score: number }) {
   if (score === 6)
     return (
       <Badge className="text-lg px-3 py-1 bg-yellow-100 text-yellow-800 border border-yellow-500 font-bold">
-        ⭐ {score}점
+        ⭐ {score}점 · 매우 적합
       </Badge>
     );
   if (score >= 4)
     return (
       <Badge className="text-lg px-3 py-1 bg-green-100 text-green-800 border border-green-400 font-semibold">
-        {score}점
+        {score}점 · 적합
       </Badge>
     );
   return (
     <Badge className="text-lg px-3 py-1 bg-gray-100 text-gray-600 border border-gray-300">
-      {score}점
+      {score}점 · 보통
     </Badge>
   );
 }
@@ -81,17 +81,20 @@ function RecommendationsContent() {
 
   return (
     <div className="space-y-6">
-      {seniorName && (
-        <p className="text-2xl text-gray-700">
-          <span className="font-bold text-blue-700">{seniorName}</span> 님의 추천 결과입니다.
+      <div className="mb-10">
+        <h1 className="text-4xl font-bold text-gray-900 mb-2">
+          {seniorName ? `${seniorName} 님께 맞는 일자리` : "추천 일자리"}
+        </h1>
+        <p className="text-xl text-gray-600">
+          경력과 희망 직종에 맞는 일자리를 점수 순으로 보여드립니다.
         </p>
-      )}
+      </div>
 
       {matches.length === 0 ? (
         <div className="text-xl text-orange-800 bg-orange-50 border-2 border-orange-300 rounded-xl px-6 py-10 text-center space-y-2">
           <p className="font-bold text-2xl">현재 매칭되는 일자리가 없습니다.</p>
           <p className="text-orange-600">
-            일자리가 등록되면 자동으로 매칭됩니다. 담당자에게 문의해 주세요.
+            담당자가 직접 연락드리니 잠시만 기다려 주세요.
           </p>
         </div>
       ) : (
@@ -137,10 +140,6 @@ function RecommendationsContent() {
 export default function RecommendationsPage() {
   return (
     <div className="max-w-3xl mx-auto px-6 py-12">
-      <h1 className="text-4xl font-bold text-gray-900 mb-2">추천 일자리</h1>
-      <p className="text-xl text-gray-600 mb-10">
-        경력과 희망 직종에 맞는 일자리를 점수 순으로 보여드립니다.
-      </p>
       <Suspense
         fallback={
           <div className="text-xl text-gray-500 py-16 text-center">
