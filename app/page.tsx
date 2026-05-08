@@ -11,6 +11,13 @@ const pages = [
     color: "border-blue-200 hover:border-blue-400",
   },
   {
+    href: "/seniors",
+    title: "시니어 목록",
+    description: "등록된 시니어 프로필을 조회·수정·삭제합니다.",
+    icon: "👥",
+    color: "border-sky-200 hover:border-sky-400",
+  },
+  {
     href: "/recommendations",
     title: "추천 일자리",
     description: "매칭 점수 높은 순으로 일자리를 확인하세요.",
@@ -34,7 +41,7 @@ export default function HomePage() {
         시니어와 일자리를 연결하는 자동 매칭 시스템
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {pages.map((page) => (
           <Link key={page.href} href={page.href}>
             <Card

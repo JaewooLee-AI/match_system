@@ -34,6 +34,9 @@ export default function RootLayout({
             <a href="/register" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
               프로필 등록
             </a>
+            <a href="/seniors" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
+              시니어 목록
+            </a>
             <a href="/recommendations" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
               추천 일자리
             </a>
