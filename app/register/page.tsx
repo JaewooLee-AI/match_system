@@ -103,8 +103,9 @@ export default function RegisterPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-12">
+      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">신청하기</p>
       <h1 className="text-4xl font-bold text-gray-900 mb-2">시니어 일자리 신청하기</h1>
-      <p className="text-xl text-gray-600 mb-10">
+      <p className="text-xl text-gray-500 mb-10">
         정보를 입력하시면 맞는 일자리를 찾아드립니다.
       </p>
 
@@ -131,7 +132,7 @@ export default function RegisterPage() {
         </div>
       )}
 
-      <Card className="shadow-md">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl text-gray-800">개인 정보 입력</CardTitle>
         </CardHeader>

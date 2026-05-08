@@ -133,12 +133,13 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
 
   return (
     <section className="mb-16">
+      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">현황</p>
       <h2 className="text-3xl font-bold text-gray-900 mb-6">매칭 현황</h2>
 
       {/* 집계 카드 3개 */}
       <div className="grid grid-cols-3 gap-6 mb-10">
         {SUMMARY_META.map((m) => (
-          <Card key={m.key} className={`border-2 ${m.color} shadow-sm`}>
+          <Card key={m.key} className={`rounded-2xl border-2 ${m.color} shadow-sm`}>
             <CardContent className="py-6 text-center">
               <p className="text-3xl mb-1">{m.icon}</p>
               <p className="text-xl font-semibold text-gray-700 mb-1">{m.label}</p>
@@ -152,7 +153,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
       </div>
 
       {/* 미매칭 · 매칭 대기 목록 */}
-      <Card className="shadow-md mb-8">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm mb-8">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl text-gray-800">미매칭 · 매칭 대기 목록</CardTitle>
@@ -227,7 +228,7 @@ function MatchDashboard({ refreshKey }: { refreshKey: number }) {
       </Card>
 
       {/* 배정 완료 목록 */}
-      <Card className="shadow-md border-2 border-green-200">
+      <Card className="rounded-2xl border-2 border-green-200 shadow-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl text-gray-800">✅ 배정 완료 목록</CardTitle>
@@ -393,10 +394,11 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
 
   return (
     <section className="mb-16">
+      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">일자리</p>
       <h2 className="text-3xl font-bold text-gray-900 mb-6">일자리 관리</h2>
 
       {/* 일자리 추가 폼 */}
-      <Card className="shadow-md mb-8">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm mb-8">
         <CardHeader className="pb-3">
           <CardTitle className="text-2xl text-gray-800">새 일자리 추가</CardTitle>
         </CardHeader>
@@ -501,7 +503,7 @@ function JobManagement({ onJobAdded }: { onJobAdded: () => void }) {
       </Card>
 
       {/* 일자리 목록 테이블 */}
-      <Card className="shadow-md">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-2xl text-gray-800">등록된 일자리</CardTitle>
@@ -580,8 +582,9 @@ export default function AdminPage() {
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
+      <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">관리자</p>
       <h1 className="text-4xl font-bold text-gray-900 mb-2">담당자 대시보드</h1>
-      <p className="text-xl text-gray-600 mb-12">
+      <p className="text-xl text-gray-500 mb-12">
         일자리를 등록하고 시니어 매칭 현황을 관리하세요.
       </p>
 

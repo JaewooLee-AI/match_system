@@ -131,8 +131,9 @@ export default function SeniorsPage() {
       {/* 헤더 */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
         <div>
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-1">관리</p>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-1">시니어 목록</h1>
-          <p className="text-lg sm:text-xl text-gray-600">등록된 시니어 프로필을 조회·수정·삭제합니다.</p>
+          <p className="text-lg sm:text-xl text-gray-500">등록된 시니어 프로필을 조회·수정·삭제합니다.</p>
         </div>
         <Link href="/register" className="shrink-0">
           <Button
@@ -144,7 +145,7 @@ export default function SeniorsPage() {
         </Link>
       </div>
 
-      <Card className="shadow-md">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm">
         {/* 검색 바 */}
         <CardHeader className="pb-3">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3">

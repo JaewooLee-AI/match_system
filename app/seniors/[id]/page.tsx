@@ -149,12 +149,13 @@ export default function EditSeniorPage() {
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-12">
-      <div className="flex items-center gap-4 mb-8">
+      <div className="mb-8">
         <Link href="/seniors">
-          <Button variant="outline" className="text-lg cursor-pointer">
-            ← 목록
+          <Button variant="outline" className="text-base cursor-pointer mb-4 border-gray-300 text-gray-600 hover:bg-gray-100">
+            ← 목록으로
           </Button>
         </Link>
+        <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">프로필 관리</p>
         <h1 className="text-4xl font-bold text-gray-900">프로필 수정</h1>
       </div>
 
@@ -181,7 +182,7 @@ export default function EditSeniorPage() {
         </div>
       )}
 
-      <Card className="shadow-md">
+      <Card className="rounded-2xl border border-gray-200 shadow-sm">
         <CardHeader className="pb-4">
           <CardTitle className="text-2xl text-gray-800">개인 정보 수정</CardTitle>
         </CardHeader>

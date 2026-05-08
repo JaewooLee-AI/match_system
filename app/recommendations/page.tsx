@@ -82,10 +82,11 @@ function RecommendationsContent() {
   return (
     <div className="space-y-6">
       <div className="mb-10">
+        <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-2">추천 결과</p>
         <h1 className="text-4xl font-bold text-gray-900 mb-2">
           {seniorName ? `${seniorName} 님께 맞는 일자리` : "추천 일자리"}
         </h1>
-        <p className="text-xl text-gray-600">
+        <p className="text-xl text-gray-500">
           경력과 희망 직종에 맞는 일자리를 점수 순으로 보여드립니다.
         </p>
       </div>
@@ -111,7 +112,7 @@ function RecommendationsContent() {
             {matches.map((m) => (
               <Card
                 key={m.id}
-                className="shadow-sm hover:shadow-md transition-shadow border-2 border-gray-200"
+                className="rounded-2xl border border-gray-200 shadow-sm hover:shadow-md hover:border-blue-200 hover:-translate-y-0.5 transition-all"
               >
                 <CardHeader className="pb-2">
                   <div className="flex items-start justify-between gap-4">

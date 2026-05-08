@@ -28,19 +28,19 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-gray-50 text-gray-900">
-        <header className="bg-white border-b border-gray-200 shadow-sm">
-          <nav className="max-w-5xl mx-auto px-6 py-4 flex gap-8 items-center">
-            <a href="/" className="text-2xl font-bold text-blue-700 hover:text-blue-900 transition-colors">상상우리</a>
-            <a href="/register" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
+        <header className="bg-gray-950 border-b border-gray-800 sticky top-0 z-50">
+          <nav className="max-w-5xl mx-auto px-6 py-4 flex gap-6 items-center overflow-x-auto">
+            <a href="/" className="text-2xl font-bold text-white hover:text-blue-400 transition-colors shrink-0">상상우리</a>
+            <a href="/register" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
               프로필 등록
             </a>
-            <a href="/seniors" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
+            <a href="/seniors" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
               시니어 목록
             </a>
-            <a href="/recommendations" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
+            <a href="/recommendations" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
               추천 일자리
             </a>
-            <a href="/admin" className="text-xl font-medium text-gray-700 hover:text-blue-700 transition-colors">
+            <a href="/admin" className="text-base font-medium text-gray-400 hover:text-white transition-colors shrink-0">
               담당자 대시보드
             </a>
           </nav>
